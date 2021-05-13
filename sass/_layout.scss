@@ -1,0 +1,33 @@
+.container {
+    max-width: 120rem; /* if max-width is less than 120rem then it will occupy 100% of viewport width */
+    margin: 8rem auto; /* centers container inside parent element which is the body */
+    background-color: var(--color-grey-light-2);
+    box-shadow: var(--shadow-dark);
+
+    min-height: 50rem;
+}
+
+.header {
+    font-size: 1.4rem;
+    height: 7rem;
+    background-color: #fff;
+    border-bottom: var(--color-grey-light-2);
+    display: flex;
+    justify-content: space-between; /* Placed the header with space-between because we don't want any space between the logo and the user name on the sides. */
+    align-items: center; /* Centers the header content vertically */
+}
+
+.content { /* Flex Container */
+    display: flex;
+}
+
+
+.sidebar { /* Flex Items */
+    background-color: var(--color-grey-dark-1);
+    flex: 0 0 18%; /* 1st value = flex grow (default is 0); 2nd value = shrink (default is 0); Last Value = width of flex item which is 18%; This flex width property will override any width property you try to give it. Flex grow and shrink properties will not grow or shrink due to our values being 0. */
+ }
+
+.hotel-view { /* Flex Items */
+    background-color:orangered;
+    flex: 1; /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */
+}

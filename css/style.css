@@ -1,0 +1,214 @@
+/*
+COLORS
+
+Primary: #eb2f64
+Primary light: #FF3366
+Primary dark: #BA265D
+
+Grey light 1: #faf9f9
+Grey light 2: #f4f2f2
+Grey light 3: #f0eeee
+Grey light 4: #ccc
+
+Grey dark 1: #333
+Grey dark 2: #777
+Grey dark 3: #999
+
+*/
+/* GLOBAL CSS DEFAULT SETTINGS WE WOULD LIKE TO START WITH */
+:root {
+  /* Higher specificity than html. Put our custom properties at highest place in document so it can be used throughout anywhere */
+  --color-primary: #eb2f64;
+  /* -- double dashes distinghish our custom properties from regular CSS properties */
+  --color-primary-light: #ff3366;
+  /* -- double dashes distinghish our custom properties from regular CSS properties */
+  --color-primary-dark: #ba265d;
+  /* -- double dashes distinghish our custom properties from regular CSS properties */
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+  --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
+  /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */ }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  /* 1rem = 10px ----> 10px/16px = 62.5%; 16px is standard browser font-size and we would like to distribute our elements in units of 10px. */ }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-2);
+  background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh; }
+
+.container {
+  max-width: 120rem;
+  /* if max-width is less than 120rem then it will occupy 100% of viewport width */
+  margin: 8rem auto;
+  /* centers container inside parent element which is the body */
+  background-color: var(--color-grey-light-2);
+  box-shadow: var(--shadow-dark);
+  min-height: 50rem; }
+
+.header {
+  font-size: 1.4rem;
+  height: 7rem;
+  background-color: #fff;
+  border-bottom: var(--color-grey-light-2);
+  display: flex;
+  justify-content: space-between;
+  /* Placed the header with space-between because we don't want any space between the logo and the user name on the sides. */
+  align-items: center;
+  /* Centers the header content vertically */ }
+
+.content {
+  /* Flex Container */
+  display: flex; }
+
+.sidebar {
+  /* Flex Items */
+  background-color: var(--color-grey-dark-1);
+  flex: 0 0 18%;
+  /* 1st value = flex grow (default is 0); 2nd value = shrink (default is 0); Last Value = width of flex item which is 18%; This flex width property will override any width property you try to give it. Flex grow and shrink properties will not grow or shrink due to our values being 0. */ }
+
+.hotel-view {
+  /* Flex Items */
+  background-color: orangered;
+  flex: 1;
+  /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */ }
+
+/*-------------------------------LOGO--------------------------------------------*/
+.logo {
+  height: 3.25rem;
+  margin-left: 2rem; }
+
+/*-------------------------------SEARCH--------------------------------------------*/
+.search {
+  flex: 0 0 40%;
+  /* Since this is a flex item (child of a flex property - which is the header) we can use flex property here; 1st 0 = grow; 2nd 0 = shrink; 3rd element = 40% and that means we want to stretch the search bar 40% of its available container */
+  display: flex;
+  /* We can also make this a flex element even though this is a flex item using the flex property above; We use the flex property here to move and position the input and magnifying glass within our search form container. */
+  align-items: center;
+  /* Centers elements in the middle of the container vertically */
+  justify-content: center;
+  /* Centers elements in the middle of the container horizontally */ }
+  .search__input {
+    /* This is the search input box */
+    font-family: inherit;
+    /* font of input does not pick up global font-family settings automatically and must put inherit for it to receive global font settings */
+    font-size: inherit;
+    /* font of input does not pick up global font-family settings automatically and must put inherit for it to receive global font settings */
+    color: inherit;
+    background-color: var(--color-grey-light-2);
+    border: none;
+    padding: .7rem 2rem;
+    border-radius: 10rem;
+    /* Gives search bar input a rounded border */
+    width: 90%;
+    transition: all .2s;
+    /* Animation for the input box stretching from 90% to 100% when user clicks inside input box to search for something */
+    margin-right: -3.25rem;
+    /* Moves the magnifying glass button on top of the search input field; If it doesn't have this property it sits to the complete right side of the input field */ }
+    .search__input:focus {
+      /* This selector is activated upon a user clicking inside the search field to enter a search term */
+      outline: none;
+      /* Gets rid of default browser outline (usally blue) when you put something in focus */
+      width: 100%;
+      background-color: var(--color-grey-light-3); }
+    .search__input::placeholder {
+      /* Styling for default placeholder text found in search input bar */
+      font-weight: 100;
+      color: var(--color-grey-light-4); }
+  .search__input:focus + .search__button {
+    /* This selector is selecting the adjacent sibling of &__input which if you look at the HTML file it is search__button or &__button in our case here for CSS purposes. */
+    background-color: var(--color-grey-light-3); }
+  .search__button {
+    border: none;
+    background-color: var(--color-grey-light-2); }
+    .search__button:focus {
+      outline: none;
+      /* Gets rid of default browser outline (usually blue) when element is in focus */ }
+    .search__button:active {
+      transform: translateY(0.2rem);
+      /* Moves magnifying glass search button down a bit upon clicking to make it look like it is being pushed down */ }
+  .search__icon {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-grey-dark-3);
+    /* The fill property changes the color of the svg element; So here we are changing the color of the magnifying glass from its default black to dark grey */ }
+
+/*-------------------------------USER NAVIGATION--------------------------------------------*/
+.user-nav {
+  align-self: stretch;
+  /* The picture is higher than the other icons (content has a higher height) so the other icons are centered vertically based off the flex property assigned in the layout file under .heading we have align-items:center and don't take up as much height as the picture of the user. We want the boxes all to be equal sized as the picture of the user icon so we use align-self: stretch property here to override the align-items: center property assigned for the header section because we want these boxes to stretch to the same height as the user picture. */
+  display: flex;
+  /* This is to position the navigation like bookmark, chat icons and user photo so that it is horizontally centered. */
+  align-items: center;
+  /* This is to position the navigation like bookmark, chat icons and user photo vertically centered. */
+  justify-content: space-between; }
+  .user-nav > * {
+    /* Selects user-nav and all its direct children whichis the user-nav__icon-box (both elements because there are 2 of them - the bookmark and the chat icon) and the user-nav__user element which contains the user photo and the span text. */
+    padding: 0 2rem;
+    /* Gives the icons spacing; Replacing padding with margin here seemed to have the same effect */
+    cursor: pointer;
+    /* Gives hand pointer when hovering over and selecting these icons */
+    height: 100%;
+    display: flex;
+    /* This fixes issue when hovering over icons they go to top of container but this makes sure they are vetically centered even upon hover. */
+    align-items: center;
+    /* This fixes issue when hovering over icons they go to top of container but this makes sure they are vetically centered even upon hover. */ }
+  .user-nav > *:hover {
+    /* Selects user-nav and all its direct children whichis the user-nav__icon-box (both elements because there are 2 of them - the bookmark and the chat icon) and the user-nav__user element which contains the user photo and the span text. */
+    background-color: var(--color-grey-light-2); }
+  .user-nav__icon-box {
+    position: relative;
+    /* Position needs to be relative here in order to absolute position the little notication number */ }
+  .user-nav__icon {
+    height: 2.25rem;
+    width: 2.25rem;
+    fill: var(--color-grey-dark-2);
+    /* This changes the color of the icon/svg element */ }
+  .user-nav__notification {
+    font-size: .8rem;
+    height: 1.75rem;
+    width: 1.75rem;
+    border-radius: 50%;
+    /* Makes the container element circular */
+    background-color: var(--color-primary);
+    /* color the notification with a pinkish color */
+    color: #fff;
+    /* Make the color of the textf or the notification white */
+    position: absolute;
+    /* Need the parent above &__icon-box to be positioned relative in order to position this little notification circle absolute */
+    top: 1.5rem;
+    /* Moving the pink circle to position it */
+    right: 1.1rem;
+    /* Moving the pink circle to position it */
+    display: flex;
+    /* You can use flex on text to center; This is used to center the notification number */
+    justify-content: center;
+    /* Center notification number horizontally */
+    align-items: center;
+    /* Center notification number vertically */ }
+  .user-nav__user-photo {
+    height: 3.75rem;
+    border-radius: 50%;
+    /* Makes picture circular */
+    margin-right: 1rem; }
