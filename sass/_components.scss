@@ -8,7 +8,7 @@
 
 
 
-/*-------------------------------SEARCH--------------------------------------------*/
+/*-------------------------------SEARCH BAR--------------------------------------------*/
 .search {
     flex: 0 0 40%; /* Since this is a flex item (child of a flex property - which is the header) we can use flex property here; 1st 0 = grow; 2nd 0 = shrink; 3rd element = 40% and that means we want to stretch the search bar 40% of its available container */
     display: flex; /* We can also make this a flex element even though this is a flex item using the flex property above; We use the flex property here to move and position the input and magnifying glass within our search form container. */
@@ -64,7 +64,7 @@
 }
 
 
-/*-------------------------------USER NAVIGATION--------------------------------------------*/
+/*-------------------------------USER NAVIGATION AT TOP OF WEBSITE (INCLUDES BOOKMARK ICON/ CHAT ICON / USER PHOTO--------------------------------------------*/
 .user-nav {
     align-self: stretch; /* The picture is higher than the other icons (content has a higher height) so the other icons are centered vertically based off the flex property assigned in the layout file under .heading we have align-items:center and don't take up as much height as the picture of the user. We want the boxes all to be equal sized as the picture of the user icon so we use align-self: stretch property here to override the align-items: center property assigned for the header section because we want these boxes to stretch to the same height as the user picture. */
     display: flex; /* This is to position the navigation like bookmark, chat icons and user photo so that it is horizontally centered. */
@@ -74,7 +74,7 @@
     & > * { /* Selects user-nav and all its direct children whichis the user-nav__icon-box (both elements because there are 2 of them - the bookmark and the chat icon) and the user-nav__user element which contains the user photo and the span text. */
       padding: 0 2rem; /* Gives the icons spacing; Replacing padding with margin here seemed to have the same effect */
       cursor: pointer; /* Gives hand pointer when hovering over and selecting these icons */
-      height: 100%;
+      height: 100%; /* Needed to give all children of user-nav a height of 100%. They were not as high as the user image so we needed to ensure that all the boxes are 100% in height */
       display: flex; /* This fixes issue when hovering over icons they go to top of container but this makes sure they are vetically centered even upon hover. */
       align-items: center; /* This fixes issue when hovering over icons they go to top of container but this makes sure they are vetically centered even upon hover. */
     
@@ -116,3 +116,192 @@
         margin-right: 1rem;
     }
 }
+
+
+/*-------------------------------SIDE NAVIGATION--------------------------------------------*/
+.side-nav {
+    font-size: 1.4rem;
+    list-style: none; /* Gets rid of bullet points in list */
+    margin-top: 3.5rem;
+
+    
+    &__item {
+        position: relative;
+
+        &:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+    }
+    
+    &__item::before { /* This creates the pinkish small narrow line upon initial hover before it then gets thicker and goes across element from left to right and colors the menu item in complete pink */
+        content: "";
+        position: absolute; /* This is positioned absolute and relies on relative positioning of the parent &__item above */
+        top: 0; /* Position it at top of its container */
+        left: 0; /* Position it at left of its container */
+        height: 100%; /* Want the narrow pink line to cover 100% of the height of its container */
+        width: .3rem; /* Make this narrow pink line very narrow at only .3rem */
+        background-color: var(--color-primary);
+        transform: scaleY(0); /* scaleY is making the pink line bigger vertically; This is set to 0 so we don't see it at all and then when we hover over the menu item the scaleY changes to 1 such as below in  &__item:hover::before */
+        // transform-origin: bottom; /* Scales vertically and gets bigger starting from the bottom to the top. The default is the center and that's the one we are going to keep but if you uncomment this line of code out you can see the different affect. The center effect the line scales starting from the center and gets bigger vertically in both directions up and down. */
+        transition: transform .2s, width .4s cubic-bezier(1,0,0,1) .2s, background-color .1s; /* Sets the transition/animation of the transform property to .2s in duration then sets the transition/animation of the width property at a duration of .4s with a delay of .2s before the animation begins. Notice how the .2s duration is equal to the .2s it takes for the transform property to run. That is set at .2s on purpose so as soon as the transform animation of making the pink line go vertical is done then the pink line grows horizontally and covers the entire menu item; cubic-bezier sets the animation motion where it starts off slow and then accelerates. You can go to a site cubic-bezier.com and play with the animations and the speed of animation. Finally this animates/transitions the  &__item:active::before selector below for the background property with .1s duration.  */
+    }
+
+    &__item:hover::before,
+     &__item--active::before { /* This highlights the pink bar over the entire first HOTEL menu item */
+        transform: scaleY(1); /* This makes the pink line scale vertically when we hover over it and you will see the pink line before the icon and the menu item description */
+        width: 100%; /* Width at 100% so when we hover over the menu item it will start at a width of .3rem set above in the &__item::before and will grow vertically by the scaleY set to 1 and grow horizontally by us increasing the width to 100%. */
+    }
+
+    &__item:active::before {
+        background-color: var(--color-primary-light); /* Upon clicking on any of the menu items the color turns a bit lighter. The animation for this is above in the &__item::before above where we specify a .1s duration for the background-color change to a lighter color upon clicking the menu item. */
+    }
+
+    &__link:link,
+    &__link:visited {
+        color: var(--color-grey-light-1);
+        text-decoration: none; /* Get rid of underline in link or <a> tag */
+        text-transform: uppercase;
+        padding: 1.5rem 3rem; /* 1.5rem vertical top and bottom padding and 3rem horizontal left/right padding */
+        position: relative; /* There has to be a positioned property in order for z-index directly below to work */
+        z-index: 10; /* Without this the pink line was doing its animation but covering the icons with the menu item descriptions. Set a z-index so that the icons and the menu item descriptions sit on top of the pink bar that animates over the menu item. In order for z-index to work you have to have a positioned item such as the position: relative directly above in the code. */
+        display: flex; /* Needed to center vertically the <svg> icons with <span> tag which is the description of the menu item/icon. The side-nav__link which is what this selector is under is the parent and the 2 direct children that needed to be aligned are the <svg> tag (icon) and the <span> tag (menu text) therefore the flex property goes here. */
+        align-items: center; /* Needed to center vertically the <svg> icons with <span> tag which is the description of the menu item/icon */
+    }
+
+    &__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        fill: currentColor; /* Fill property is the property to use to color <svg> items. CurrentColor property is the color of the current parent which is the --color-grey-light-1 from the &__link:link, &__link:visited above; &__icon is a child of this parent and so currentColor property just essentially says to inherit color property from parent. */
+    }
+}
+
+
+/*-------------------------------LEGAL TEXT--------------------------------------------*/
+.legal {
+    font-size: 1.2rem;
+    color: var(--color-grey-light-4);
+    text-align: center;
+    padding: 2.5rem;  
+}
+
+
+/*-------------------------------HOTEL PHOTOS--------------------------------------------*/
+.gallery {
+    display: flex;
+
+    &__photo {
+        width: 100%; /* Width is 100% of the containing block which is the <figure> element */
+        display: block; /* All images should be block or inline-block elements to get rid of white space below it; By default images are inline elements */
+    }
+}
+
+
+/*-------------------------------HOTEL OVERVIEW WITH RATINGS AND LOCATION AND STAR RATING--------------------------------------------*/
+.overview {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-grey-light-4);
+    
+
+    &__heading { /* HOTEL LAS PALMAS HEADING */
+        font-size: 2.25rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+    }
+
+    &__stars {
+        // flex-grow: 1; /* Before placing this here the hotel, stars and location and ratings were all bunched together over on the left side of the page. When setting this to flex grow 1 this will cause the stars to fill all the available space in the container which then causes the location and ratings to get pushed all the way to the right of the container. The stars get all the remaining space once you push the location and the ratings to the far right of the container. Doing this separates the Hotel name and the star rating from the location and ratings. */
+        margin-right: auto; /* Auto here sets the stars container to the width of its content and pushes the other content to the right of it (location and ratings) all the way to the end of the other side of the parents flex container; We commented out the above because although we get the desired look but now the stars take up the remaining space but what if we want some hover effect, etc we don't want the stars to have that big of a box. */
+        display: flex; /* Adding flex here gets rid of extra space at bottom of stars and height of container is the star icon itself */ 
+    }
+
+    &__icon-star, /* These are the star icons */
+    &__icon-location { /* This is the location icon */
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: var(--color-primary); /* Give our icons the pinkish primary color of our website */
+    }
+
+    &__location {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        
+    }
+
+    &__icon-location {
+        margin-right: .5rem;
+    }
+
+    &__rating {
+        background-color: var(--color-primary);
+        color: #fff;
+        margin-left: 3rem;
+        align-self: stretch; /* Without this the rating section with the background did not stretch the height of the parents container. There was some empty white space at the top and bottom. To fix this you use the flex property align-self which overrides the align-items center that the parent class overview placed on this flex item. */
+        padding: 0 2.25rem;
+        display: flex;  /*  Set this as flex so we can move and center the elements within this container. We are a flex item and also a flex parent. We are a flex item by the align-self above because we are a flex item from the overview class but we are now becoming a flex parent as well because we need to move the elments within this containing block */
+        align-items: center; /* Vertically center items */
+        justify-content: center; /* Horizontally center items */
+        flex-direction: column; /* Set the direction to column/vertical because default is horizontal */
+    }
+
+    &__rating-average {
+        font-size: 2.25rem;
+        font-weight: 300;
+        margin-bottom: -.3rem;
+      
+    }
+
+    &__rating-count {
+        font-size: .8rem;
+        text-transform: uppercase;
+       
+    }
+}
+
+
+/*-------------------------------LOCATION NAME WHICH IS A LINK/BUTTON--------------------------------------------*/
+
+.btn-inline { /* This is the location button that looks like a link on page that says Albufeira, Portugal */
+    border: none; /* Git rid of the border that buttons get by default */
+    color: var(--color-primary);
+    font-size: inherit;
+    border-bottom: 1px solid currentColor; /* currentColor property is the color from above which indicates the --color-primary so you don't have to change it in two different places if you do decide to change it */
+    padding: inline-block;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+        color: var(--color-grey-dark-1);
+       
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite; /* Trigger the @keyframes pulsate animation when Albufeira, Portugal link/button is clicked on or in focus. Make the animation infinite so it keeps scaling up and down and doesn't just do this once */
+    }
+
+}
+
+/* Animation for when you click on Albufeira, Portugal location - there is an animation that makes the location text scale up and down */
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 1rem 4rem rgba(0,0,0,.25);
+    }
+
+    100% {
+
+    }
+}
+
+

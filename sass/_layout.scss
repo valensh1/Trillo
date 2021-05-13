@@ -11,7 +11,7 @@
     font-size: 1.4rem;
     height: 7rem;
     background-color: #fff;
-    border-bottom: var(--color-grey-light-2);
+    border-bottom: 1px solid var(--color-grey-light-2);
     display: flex;
     justify-content: space-between; /* Placed the header with space-between because we don't want any space between the logo and the user name on the sides. */
     align-items: center; /* Centers the header content vertically */
@@ -25,9 +25,13 @@
 .sidebar { /* Flex Items */
     background-color: var(--color-grey-dark-1);
     flex: 0 0 18%; /* 1st value = flex grow (default is 0); 2nd value = shrink (default is 0); Last Value = width of flex item which is 18%; This flex width property will override any width property you try to give it. Flex grow and shrink properties will not grow or shrink due to our values being 0. */
- }
+    display: flex; 
+    flex-direction: column; /* Have sidebar menu items flow vertically in column format */
+    justify-content: space-between; /* justify-content usually run horizontally in row direction but because we changed the main axis to column then justify content works in vertical/column fashion and align items would now work in the cross-axis horizontal/row fashion. This pushes the <ul> tag class of side-nav and <div> tag class of legal to separate ends of the vertical space. Space-between fills all the empty space and spaces the two flex items apart. These are the 2 flex items and not anything else because these are the 2 direct children of the <nav> tag with class of sidebar. The 4 list items with the icons are all grouped together at the top because this is considered one flex item (all under the <ul> tag withclass of side-nav) and the <div> with classof legal is considered the 2nd flex item and this was pushed to bottom of container. These are both direct children. */
+}
+
 
 .hotel-view { /* Flex Items */
-    background-color:orangered;
     flex: 1; /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */
-}
+    height: 80rem;
+    }
