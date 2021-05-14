@@ -34,7 +34,9 @@ Grey dark 3: #999
     --color-grey-dark-3: #999;
 
     --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3); /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */
-
+   
+    --line: 1px solid var(--color-grey-light-2);
+    --line2: 1px solid var(--color-grey-light-4);
 
 };
 

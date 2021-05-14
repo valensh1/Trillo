@@ -34,4 +34,22 @@
 .hotel-view { /* Flex Items */
     flex: 1; /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */
     height: 80rem;
-    }
+}
+
+.detail {
+    display: flex;
+    padding: 4.5rem;
+    background-color: var(--color-grey-light-1);
+    border-bottom: var(--line2);
+}
+
+.description {
+    background-color: orangered;
+    flex: 0 0 60%; /* First 0 represents flex grow, 2nd 0 represents flex shrink and the last value of 60% represents the width */
+    margin-right: 4.5rem;
+}
+
+.user-reviews {
+    background-color: yellowgreen;
+    flex: 1 /* We want this to take up the remaining additional space in container so we set flex to 1; Flex property with only one value is the same as flex-grow: 1 */
+}

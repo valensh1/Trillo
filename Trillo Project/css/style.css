@@ -32,7 +32,9 @@ Grey dark 3: #999
   --color-grey-dark-2: #777;
   --color-grey-dark-3: #999;
   --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
-  /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */ }
+  /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */
+  --line: 1px solid var(--color-grey-light-2);
+  --line2: 1px solid var(--color-grey-light-4); }
 
 * {
   margin: 0;
@@ -98,6 +100,22 @@ body {
   flex: 1;
   /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */
   height: 80rem; }
+
+.detail {
+  display: flex;
+  padding: 4.5rem;
+  background-color: var(--color-grey-light-1);
+  border-bottom: var(--line2); }
+
+.description {
+  background-color: orangered;
+  flex: 0 0 60%;
+  /* First 0 represents flex grow, 2nd 0 represents flex shrink and the last value of 60% represents the width */
+  margin-right: 4.5rem; }
+
+.user-reviews {
+  background-color: yellowgreen;
+  flex: 1; }
 
 /*-------------------------------LOGO--------------------------------------------*/
 .logo {
