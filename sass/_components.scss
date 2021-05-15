@@ -201,7 +201,7 @@
 .overview {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--color-grey-light-4);
+    border-bottom: 1px solid var(--line);
     
 
     &__heading { /* HOTEL LAS PALMAS HEADING */
@@ -306,3 +306,81 @@
 }
 
 
+/*-------------------------------HOTEL DETAILS SECTION-------------------------------------------------------*/
+
+/*-------------------------------HOTEL PARAGRAPH--------------------------------------------*/
+.paragraph:not(:last-of-type) {
+    margin-bottom: 2rem;
+}
+
+
+
+
+
+/*-------------------------------LIST-------------------------------------------------------*/
+.list {
+    list-style: none; /* Eliminates list bullet points */
+    margin: 3rem 0; /* 3rem margin top and bottom 0 margin left/right */
+    padding: 3rem 0; /* 3rem padding top and bottom 0 padding left/right */
+    border-top: var(--line);
+    border-bottom: var(--line);
+
+    display: flex; /* This will place all hotel list items side by side horizontally but it is a mess and that's why we need &__item below with a flex: 0 (grow) 0 (shrink) 50% (width) so each list item only takes up 50% of the width which would give you 2 list items per row.  */
+    flex-wrap: wrap; /* This will automatically wrap list items to next line */
+
+    &__item {
+        flex: 0 0 50%; /* This solves the problem of list items looking terrible upon the initial flex being set as this sets each flex item to 50% which would then allow 2 list items per row */
+        margin-bottom: .7rem;
+    }
+
+    &__item::before { /* This is to place the arrow svg item before each list item */
+        content: "";
+        display: inline-block; /* MUST PUT THIS HERE OTHERWISE ARROWS WILL NOT SHOW BEFORE LIST ITEMS */
+        height: 1rem;
+        width: 1rem;
+        margin-right: .7rem;
+
+        /* OLDER BROWSERS */
+        // background-image: url(../img/chevron-thin-right.svg);
+        // background-size: cover;
+
+        /* NEWER BROWSERS */
+        background-color: var(--color-primary); /* Sets the color of our svg arrows; Before placing -webkit-mask-image in code below this is a pinkish square defined by our --color-primary color */
+        -webkit-mask-image: url(../img/chevron-thin-right.svg); /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
+        -webkit-mask-size: cover; /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */
+        mask-image: url(../img/chevron-thin-right.svg); /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
+        mask-size: cover; /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */
+    }
+
+
+}
+
+
+/*-------------------------------RECOMMEND-----------------------------------------------------*/
+.recommend {
+    font-size: 1.3rem;
+    color: var(--color-grey-dark-3);
+    display: flex; /* Flex property needed to get paragraph mentioning how many friends recommended the hotel and the users images on to the same line */
+    align-items: center;
+
+
+    &__count {
+        margin-right: auto; /* This automatically calculates the margin needed to push the images to the far right of the container to give it some space from the images. */
+    }
+
+    &__friends {
+
+    }
+
+    &__photo {
+        box-sizing: content-box; /* This is needed because when we add the border our pictures got smaller. This is because our global default setting is for border-box which automatically adjusts the content inside the container for any given padding and borders. No matter how much padding or borders the box won't change its height or width accordingly with border box. But in this case we do want the height and width properties to change based upon adding borders and padding, etc so that our pictures don't get smaller when we add a border. So...we change the box-sizing back to its default which is content-box; */
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%; /* Makes the images of the users round */
+        border: 3px solid #fff; /* Giving the images a white border that matches the background to give the images a much cooler look */
+
+        &:not(:last-child) {
+            margin-right: -1.5rem; /* Give images negative right margin EXCEPT the last image to make it so they overlap each other and kind of slightly sit on top of each other */
+        }
+    }
+}
