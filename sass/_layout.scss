@@ -38,6 +38,7 @@
 }
 
 .detail {
+    font-size: 1.4rem;
     display: flex;
     padding: 4.5rem;
     background-color: var(--color-grey-light-1);
@@ -45,7 +46,6 @@
 }
 
 .description {
-    font-size: 1.4rem;
     box-shadow: var(--shadow-light);
     padding: 3rem;
     flex: 0 0 60%; /* First 0 represents flex grow, 2nd 0 represents flex shrink and the last value of 60% represents the width */
@@ -53,6 +53,8 @@
 }
 
 .user-reviews {
-    background-color: yellowgreen;
-    flex: 1 /* We want this to take up the remaining additional horizontal space in container so we set flex to 1; Flex property with only one value is the same as flex-grow: 1 */
+    flex: 1; /* We want this to take up the remaining additional horizontal space in container so we set flex to 1; Flex property with only one value is the same as flex-grow: 1 */
+    display: flex; /* Everything was coming out Ok but need to center Show All -> button at bottom so put in display:flex property here so we can properly center that button. If didn't have that button then we wouldn't need this as everything was already perfectly aligned */
+    flex-direction: column;
+    align-items: center; /* Before putting this here the Show All -> button had a large underline that stretched the entire width of its parent container because when using flex the detault property for elements is stretch so the line was stretching across. We just include align-items because we are dealing with the cross axis which because flex-direction is column now the align-items is working horizontally across the cross-axis and when we put align-items to center it changes that stretch property to center and now the underline is ONLY showing the span of the text Show All -> instead of spanning the entire width of its parents container which run way further than the button itself */
 }

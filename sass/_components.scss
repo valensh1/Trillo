@@ -275,8 +275,17 @@
     cursor: pointer;
     transition: all .2s;
 
+    & span {
+        margin-left: .3rem;
+        transition: margin-left .2s; /* animation of the arrow moving to right with .2s duration */
+    }
+
     &:hover {
         color: var(--color-grey-dark-1);
+
+        span {
+            margin-left: .8rem; /* Want arrow to move right by giving it a margin-left upon hover */
+        }
        
     }
 
@@ -382,5 +391,68 @@
         &:not(:last-child) {
             margin-right: -1.5rem; /* Give images negative right margin EXCEPT the last image to make it so they overlap each other and kind of slightly sit on top of each other */
         }
+    }
+}
+
+
+/*-------------------------------USER REVIEWS-----------------------------------------------------*/
+.review {
+    background-color: #fff;
+    box-shadow: var(--shadow-light);
+    padding: 3rem;
+    margin-bottom: 3.5rem;
+    position: relative; /* Purpose of positioning this relative is so we can absolute position our quotation marks in our user review */
+    overflow: hidden; /* The double quotation marks were overflowing outside our user review box on to the light grey background behind it. This hides any element overflowing the container */ 
+    
+    &__text {
+        margin-bottom: 2rem;
+        z-index: 10; /* Setting this to a z-index of 10 which is higher than the z-index of 1 assigned to the &::before (double quotes) because we want the text to sit on top of the double quotes */
+        position: relative; /* MUST HAVE POSITIONED ELEMENT IN ORDER TO USE Z-INDEX */
+    }
+
+    &__user {
+        display: flex;  /* Flex needed here so we can align the image and the <p> tags that contain the user-name and user-date */
+        align-items: center;  /* Vertically align elements */
+    }
+
+    &__photo {
+        height: 4.5rem;
+        width: 4.5rem;
+        border-radius: 50%;
+        margin-right: 1.5rem;
+    }
+
+    &__user-box {
+        margin-right: auto; /* This calcs the max amount of margin that it can give to element without pushing the other element which in this case is the user rating off the row/line. It pushes the user rating all the way to the far right of the container */
+    }
+
+    &__user-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: .4rem;
+    }
+
+    &__user-date {
+        font-size: 1rem;
+        color: var(--color-grey-dark-3);
+    }
+
+    &__rating {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: var(--color-primary);
+    }
+
+    &::before { /* This pseudo element's purpose is to get the double quotation marks to display in user review section. We are creating the content before all the other content is displayed from our HTML */
+        content: "\201C"; /* \201C is the code needed to get a left double quotation mark to display in CSS*/
+        position: absolute; /* Set the parent class .review to position: relative so we can place these quotation marks absolute according to the parent */
+        top: -2.75rem;
+        left: -1rem;
+        line-height: 1; /* Needed because quotation marks height was humongous and this shrinks it to its size */
+        font-size: 20rem;
+        color: var(--color-grey-light-2);
+        font-family: sans-serif;
+        z-index: 1 /* MUST HAVE POSITIONED ELEMENT IN ORDER TO USE Z-INDEX. Since this is positioned absolute we are good. We are placing a higher z-index on the text so this doesn't flow on top of the text. */
     }
 }

@@ -103,13 +103,13 @@ body {
   /* This will grow the Hotel View class as much as it can grow to take up the remaining additional space. With sidebar class above being 18% already setting this property to 1 will grow it to 82% of the width of the container. */ }
 
 .detail {
+  font-size: 1.4rem;
   display: flex;
   padding: 4.5rem;
   background-color: var(--color-grey-light-1);
   border-bottom: var(--line); }
 
 .description {
-  font-size: 1.4rem;
   box-shadow: var(--shadow-light);
   padding: 3rem;
   flex: 0 0 60%;
@@ -117,8 +117,13 @@ body {
   margin-right: 4.5rem; }
 
 .user-reviews {
-  background-color: yellowgreen;
-  flex: 1; }
+  flex: 1;
+  /* We want this to take up the remaining additional horizontal space in container so we set flex to 1; Flex property with only one value is the same as flex-grow: 1 */
+  display: flex;
+  /* Everything was coming out Ok but need to center Show All -> button at bottom so put in display:flex property here so we can properly center that button. If didn't have that button then we wouldn't need this as everything was already perfectly aligned */
+  flex-direction: column;
+  align-items: center;
+  /* Before putting this here the Show All -> button had a large underline that stretched the entire width of its parent container because when using flex the detault property for elements is stretch so the line was stretching across. We just include align-items because we are dealing with the cross axis which because flex-direction is column now the align-items is working horizontally across the cross-axis and when we put align-items to center it changes that stretch property to center and now the underline is ONLY showing the span of the text Show All -> instead of spanning the entire width of its parents container which run way further than the button itself */ }
 
 /*-------------------------------LOGO--------------------------------------------*/
 .logo {
@@ -380,8 +385,15 @@ body {
   background-color: transparent;
   cursor: pointer;
   transition: all .2s; }
+  .btn-inline span {
+    margin-left: .3rem;
+    transition: margin-left .2s;
+    /* animation of the arrow moving to right with .2s duration */ }
   .btn-inline:hover {
     color: var(--color-grey-dark-1); }
+    .btn-inline:hover span {
+      margin-left: .8rem;
+      /* Want arrow to move right by giving it a margin-left upon hover */ }
   .btn-inline:focus {
     outline: none;
     animation: pulsate 1s infinite;
@@ -465,3 +477,59 @@ body {
     .recommend__photo:not(:last-child) {
       margin-right: -1.5rem;
       /* Give images negative right margin EXCEPT the last image to make it so they overlap each other and kind of slightly sit on top of each other */ }
+
+/*-------------------------------USER REVIEWS-----------------------------------------------------*/
+.review {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  /* Purpose of positioning this relative is so we can absolute position our quotation marks in our user review */
+  overflow: hidden;
+  /* The double quotation marks were overflowing outside our user review box on to the light grey background behind it. This hides any element overflowing the container */ }
+  .review__text {
+    margin-bottom: 2rem;
+    z-index: 10;
+    /* Setting this to a z-index of 10 which is higher than the z-index of 1 assigned to the &::before (double quotes) because we want the text to sit on top of the double quotes */
+    position: relative;
+    /* MUST HAVE POSITIONED ELEMENT IN ORDER TO USE Z-INDEX */ }
+  .review__user {
+    display: flex;
+    /* Flex needed here so we can align the image and the <p> tags that contain the user-name and user-date */
+    align-items: center;
+    /* Vertically align elements */ }
+  .review__photo {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem; }
+  .review__user-box {
+    margin-right: auto;
+    /* This calcs the max amount of margin that it can give to element without pushing the other element which in this case is the user rating off the row/line. It pushes the user rating all the way to the far right of the container */ }
+  .review__user-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: .4rem; }
+  .review__user-date {
+    font-size: 1rem;
+    color: var(--color-grey-dark-3); }
+  .review__rating {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--color-primary); }
+  .review::before {
+    /* This pseudo element's purpose is to get the double quotation marks to display in user review section. We are creating the content before all the other content is displayed from our HTML */
+    content: "\201C";
+    /* \201C is the code needed to get a left double quotation mark to display in CSS*/
+    position: absolute;
+    /* Set the parent class .review to position: relative so we can place these quotation marks absolute according to the parent */
+    top: -2.75rem;
+    left: -1rem;
+    line-height: 1;
+    /* Needed because quotation marks height was humongous and this shrinks it to its size */
+    font-size: 20rem;
+    color: var(--color-grey-light-2);
+    font-family: sans-serif;
+    z-index: 1; }
