@@ -456,3 +456,73 @@
         z-index: 1 /* MUST HAVE POSITIONED ELEMENT IN ORDER TO USE Z-INDEX. Since this is positioned absolute we are good. We are placing a higher z-index on the text so this doesn't flow on top of the text. */
     }
 }
+
+
+/*-------------------------------CTA - BOOK NOW BOTTOM TEXT SECTION -----------------------------------------------------*/
+.cta {
+    padding: 3.5rem 0;
+    text-align: center;
+
+    &__book-now {
+        font-size: 2rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+
+    }
+}
+
+/*-------------------------------CTA - BOOK NOW BUTTON SECTION -----------------------------------------------------*/
+
+.btn {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-radius: 10rem; /* Making the button round */
+    border: none; /* Get rid of the default border on a <button> tag */
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark)); /* Gives the button the linear gradient background image which goes from left (which is a lighter color) to right (which is a darker color) */
+    color: #fff; /* Text color of button */
+    position: relative; /* Positioned relative so that we can absolute position the &__invisible button below */
+    overflow: hidden; /* This hides the part of the button that is overflowing to the outside which is the &__invisible class below. What we are hiding is this invisible class that we set above the visible button as we don't want that to be visible at all until user hovers over button then this invisible class will slide down and be visible inside the button. */
+    cursor: pointer;
+
+    & > * { /* Selector selects all of the children inside the parent class (parent is the .btn class). Added this selector because we had a lot of repeated code between &__visible and &__invisible classes. */
+        display: inline-block; /* &__btn__visible is a span tag which is an inline element. We need to change this to an inline-block element so that we can use padding property. With inline elements you cannot use the padding property. */ 
+        height: 100%; /* Giving it 100% height of its parent. */
+        width: 100%; /* Giving it 100% width of its parent. */
+        transition: all .2s;
+    }
+    
+    &__visible {
+       padding: 2rem 7.5rem;
+    }
+
+    &__invisible {
+        position: absolute;  /* Positioned absolute so we can place this directly above the button and hidden. Had to relatively position its parent which is the .btn button above in order to absolutely position this element. */
+        padding: 2rem 0rem; /* Must have a left to right padding at 0 because the word Left is flowing on to the button because if you give it a ton of left to right padding the word will overflow on to button and you want it to be completely hidden so.....no padding is needed on the left to right so that the words completely fit into the invisible button above the visible button. */
+        left: 0;
+        top: -100%; /* Want to position this just outside its parent container which is the .btn class so it stays invisible in its starting position. */
+        transition: all .2s;
+        // visibility: hidden; /* Could also use this property here instead of the overflow:hidden property on the .btn class above to hide the invisible button. */
+    }
+
+    &:hover {
+        background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark)); /* Gives the button the linear gradient background image which goes from right (which is a lighter color) to left (which is a darker color). It is the exact opposite gradient direction of color when it is not hovered over you will notice when not hovered over darkest section is on right but when hovered over darkest section is on left */
+
+    }
+
+    &:hover &__visible {
+        transform: translateY(100%); /* Upon being hovered over this slides down 100% */
+    }
+
+    &:hover &__invisible { /* Selector selects all &__invisible elements that are descendants of the .btn class when hovered over. */
+        position: absolute; /* Positioned this absolute here but this is not needed because we already positioned the &__invisible element absolute in the code above. */
+        top: 0; /* Since its starting position is -100% when hovered over we want this to go to its normal position so it is visible inside the button and that would be at position 0. */ 
+        
+    }
+
+    &:focus { /* When button is in focus which is either tabbed over or selected */ 
+        outline: none; /* Getting rid of default outline when something is in focus */
+        animation: pulsate 1s infinite; /* When button is in focus or selected we want our pulsate animation to start. This won't animate on just a hover it has to be in focus or selected */
+    }
+}
