@@ -33,10 +33,14 @@ Grey dark 3: #999
   --color-grey-dark-3: #999;
   --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
   /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */
-  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, .6);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, .06);
   /* first value is x (horizontal), 2nd value is y which is vertical, 3rd value is the blur (higher the number the greater the blur), and the last value is the color */
   --line: 1px solid var(--color-grey-light-2); }
 
+/* Sass Variables for Media Query Breakpoints */
+/* This is a Sass variable as you CANNOT use CSS variables with media queries. 1200px / 16px = 75em; bp stands for break-point and we are targeting a break-point of 1200px or 75em here */
+/* This is a Sass variable as you CANNOT use CSS variables with media queries. 1100px / 16px = 68.75em; bp stands for break-point and we are targeting a break-point of 1100px or 68.75em here */
+/* This is a Sass variable as you CANNOT use CSS variables with media queries. 900px / 16px = 56.25em; bp stands for break-point and we are targeting a break-point of 900px or 56.25em here */
 * {
   margin: 0;
   padding: 0; }
@@ -50,6 +54,10 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
   /* 1rem = 10px ----> 10px/16px = 62.5%; 16px is standard browser font-size and we would like to distribute our elements in units of 10px. */ }
+  @media only screen and (max-width: 68.75em) {
+    html {
+      font-size: 50%;
+      /* At 1100px or 68.75em we want to decrease the standard computer font-size from 16px down to 8px which is 8px/16px = .50 or 50% */ } }
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -57,6 +65,7 @@ body {
   line-height: 1.6;
   color: var(--color-grey-dark-2);
   background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+  /* This set pinkish background on our page */
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh; }
@@ -69,6 +78,14 @@ body {
   background-color: var(--color-grey-light-2);
   box-shadow: var(--shadow-dark);
   min-height: 50rem; }
+  @media only screen and (max-width: 75em) {
+    .container {
+      margin: 0;
+      /* We no longer need extra pinkish background-color at top when there is no pinkish background on sides as the screen decreases. To get rid of the background-color we just set margin to 0 as that is what allowed us to see our pinkish background in the first place on th bigger screens. */
+      max-width: 100%;
+      /* As we get smaller screen size the pinkish background is coming back so we set max-width to 100% to fix this */
+      width: 100%;
+      /* As we get smaller screen size the pinkish background is coming back so we set max-width of our container class to 100% also to ensure we get our container filling the entire screen and covering the pinkish background of the body. */ } }
 
 .header {
   font-size: 1.4rem;
@@ -84,6 +101,10 @@ body {
 .content {
   /* Flex Container */
   display: flex; }
+  @media only screen and (max-width: 56.25em) {
+    .content {
+      flex-direction: column;
+      /* At 900px or 56.25em this is making everything a flex direction of column so we can get our sidebar navigation to the top. This moves it to the top on top of our hotel pictures but we need to further alter it so the navigation items aren't just in a column format but actually go horizontally across page. This is the first step in getting them to sit on top of page though. Also check the .side-nav in components to then get the sidebar navigation to then sit horizontally next to each other at top once the screen size gets to 900px or 56.25em or smaller. */ } }
 
 .sidebar {
   /* Flex Items */
@@ -108,6 +129,9 @@ body {
   padding: 4.5rem;
   background-color: var(--color-grey-light-1);
   border-bottom: var(--line); }
+  @media only screen and (max-width: 56.25em) {
+    .detail {
+      padding: 3rem; } }
 
 .description {
   box-shadow: var(--shadow-light);
@@ -115,6 +139,10 @@ body {
   flex: 0 0 60%;
   /* First 0 represents flex grow, 2nd 0 represents flex shrink and the last value of 60% represents the width */
   margin-right: 4.5rem; }
+  @media only screen and (max-width: 56.25em) {
+    .description {
+      padding: 2rem;
+      margin-right: 3rem; } }
 
 .user-reviews {
   flex: 1;
@@ -251,10 +279,23 @@ body {
   list-style: none;
   /* Gets rid of bullet points in list */
   margin-top: 3.5rem; }
+  @media only screen and (max-width: 56.25em) {
+    .side-nav {
+      /* When screen hits 900px or 56.25em or below then set display to flex. This will cause all sidebar navigation items to be placed horizontally next to each other instead of stacked on top of each other vertically. */
+      display: flex;
+      margin: 0; } }
   .side-nav__item {
     position: relative; }
     .side-nav__item:not(:last-child) {
       margin-bottom: .5rem; }
+      @media only screen and (max-width: 56.25em) {
+        .side-nav__item:not(:last-child) {
+          margin: 0;
+          /* Eliminates any pinkish background at this smaller screen size of 900px or 56.25em or smaller */ } }
+    @media only screen and (max-width: 56.25em) {
+      .side-nav__item {
+        flex: 1;
+        /* When screen hits 900px or 56.25em or below then give each item a flex of 1 which gives them the ability to all grow in tandem together; Flex 1 calcs the available space across screen and gives all of them EXCEPT the last child the available space it needs until the last child hits the side of the container. */ } }
   .side-nav__item::before {
     /* This creates the pinkish small narrow line upon initial hover before it then gets thicker and goes across element from left to right and colors the menu item in complete pink */
     content: "";
@@ -297,6 +338,11 @@ body {
     /* Needed to center vertically the <svg> icons with <span> tag which is the description of the menu item/icon. The side-nav__link which is what this selector is under is the parent and the 2 direct children that needed to be aligned are the <svg> tag (icon) and the <span> tag (menu text) therefore the flex property goes here. */
     align-items: center;
     /* Needed to center vertically the <svg> icons with <span> tag which is the description of the menu item/icon */ }
+    @media only screen and (max-width: 56.25em) {
+      .side-nav__link:link, .side-nav__link:visited {
+        justify-content: center;
+        /* At 900px or 56.25em or below screen size we want to center the links of the navigation that runs horizontally at top inside their individual containers */
+        padding: 2rem; } }
   .side-nav__icon {
     width: 1.75rem;
     height: 1.75rem;
@@ -310,6 +356,10 @@ body {
   color: var(--color-grey-light-4);
   text-align: center;
   padding: 2.5rem; }
+  @media only screen and (max-width: 56.25em) {
+    .legal {
+      display: none;
+      /* At 900px or 56.25em or smaller screen size DO NOT SHOW the legal text anymore */ } }
 
 /*-------------------------------HOTEL PHOTOS--------------------------------------------*/
 .gallery {
@@ -465,6 +515,9 @@ body {
   .recommend__count {
     margin-right: auto;
     /* This automatically calculates the margin needed to push the images to the far right of the container to give it some space from the images. */ }
+  .recommend__friends {
+    display: flex;
+    /* This was done later in the build because as the screen got smaller the photos kept shifting down (one would shift down vertically and we always want these to be horizontal) but setting this to flex makes them always stay horizontally */ }
   .recommend__photo {
     box-sizing: content-box;
     /* This is needed because when we add the border our pictures got smaller. This is because our global default setting is for border-box which automatically adjusts the content inside the container for any given padding and borders. No matter how much padding or borders the box won't change its height or width accordingly with border box. But in this case we do want the height and width properties to change based upon adding borders and padding, etc so that our pictures don't get smaller when we add a border. So...we change the box-sizing back to its default which is content-box; */
@@ -475,7 +528,7 @@ body {
     border: 3px solid #fff;
     /* Giving the images a white border that matches the background to give the images a much cooler look */ }
     .recommend__photo:not(:last-child) {
-      margin-right: -1.5rem;
+      margin-right: -2rem;
       /* Give images negative right margin EXCEPT the last image to make it so they overlap each other and kind of slightly sit on top of each other */ }
 
 /*-------------------------------USER REVIEWS-----------------------------------------------------*/
@@ -488,6 +541,10 @@ body {
   /* Purpose of positioning this relative is so we can absolute position our quotation marks in our user review */
   overflow: hidden;
   /* The double quotation marks were overflowing outside our user review box on to the light grey background behind it. This hides any element overflowing the container */ }
+  @media only screen and (max-width: 56.25em) {
+    .review {
+      padding: 2rem;
+      margin-bottom: 3rem; } }
   .review__text {
     margin-bottom: 2rem;
     z-index: 10;
@@ -538,6 +595,9 @@ body {
 .cta {
   padding: 3.5rem 0;
   text-align: center; }
+  @media only screen and (max-width: 56.25em) {
+    .cta {
+      padding: 2.5rem 0; } }
   .cta__book-now {
     font-size: 2rem;
     font-weight: 300;

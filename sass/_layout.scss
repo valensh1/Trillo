@@ -5,6 +5,12 @@
     box-shadow: var(--shadow-dark);
 
     min-height: 50rem;
+
+    @media only screen and (max-width: $bp-largest) {
+        margin: 0; /* We no longer need extra pinkish background-color at top when there is no pinkish background on sides as the screen decreases. To get rid of the background-color we just set margin to 0 as that is what allowed us to see our pinkish background in the first place on th bigger screens. */
+        max-width: 100%; /* As we get smaller screen size the pinkish background is coming back so we set max-width to 100% to fix this */
+        width: 100%; /* As we get smaller screen size the pinkish background is coming back so we set max-width of our container class to 100% also to ensure we get our container filling the entire screen and covering the pinkish background of the body. */
+    }
 }
 
 .header {
@@ -19,6 +25,10 @@
 
 .content { /* Flex Container */
     display: flex;
+
+    @media only screen and (max-width: $bp-medium) {
+      flex-direction: column; /* At 900px or 56.25em this is making everything a flex direction of column so we can get our sidebar navigation to the top. This moves it to the top on top of our hotel pictures but we need to further alter it so the navigation items aren't just in a column format but actually go horizontally across page. This is the first step in getting them to sit on top of page though. Also check the .side-nav in components to then get the sidebar navigation to then sit horizontally next to each other at top once the screen size gets to 900px or 56.25em or smaller. */
+    }
 }
 
 
@@ -43,6 +53,10 @@
     padding: 4.5rem;
     background-color: var(--color-grey-light-1);
     border-bottom: var(--line);
+
+    @media only screen and (max-width: $bp-medium) { 
+        padding: 3rem;
+    }
 }
 
 .description {
@@ -50,6 +64,11 @@
     padding: 3rem;
     flex: 0 0 60%; /* First 0 represents flex grow, 2nd 0 represents flex shrink and the last value of 60% represents the width */
     margin-right: 4.5rem;
+
+    @media only screen and (max-width: $bp-medium) { 
+        padding: 2rem;
+        margin-right: 3rem;
+    }
 }
 
 .user-reviews {
