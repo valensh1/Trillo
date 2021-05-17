@@ -35,7 +35,7 @@ Alternatively, click [Here to view the finished website on live GitHub page.]( h
 
 * Background Images - usage of linear gradient backgrounds.
 
-* SVG - usage of <svg> elements which is the more modern way of displaying images in your websites. SVG's cut down on generating multiple HTTP server requests triggered by individual icon fonts and also allows greater flexibility into editing, coloring and animating icons.
+* SVG - usage of svg elements which is the more modern way of displaying images in your websites. SVG's cut down on generating multiple HTTP server requests triggered by individual icon fonts and also allows greater flexibility into editing, coloring and animating icons.
 
 * Mask-image - usage of the mask-image CSS property which allows you to show portions of a background image viewed only through a transparent svg icon. The pinkish arrows in this project under the hotel details section is an example of where mask-image was used on this project. 
 
