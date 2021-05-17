@@ -41,6 +41,8 @@ Grey dark 3: #999
 /* This is a Sass variable as you CANNOT use CSS variables with media queries. 1200px / 16px = 75em; bp stands for break-point and we are targeting a break-point of 1200px or 75em here */
 /* This is a Sass variable as you CANNOT use CSS variables with media queries. 1100px / 16px = 68.75em; bp stands for break-point and we are targeting a break-point of 1100px or 68.75em here */
 /* This is a Sass variable as you CANNOT use CSS variables with media queries. 900px / 16px = 56.25em; bp stands for break-point and we are targeting a break-point of 900px or 56.25em here */
+/* This is a Sass variable as you CANNOT use CSS variables with media queries. 600px / 16px = 37.5em; bp stands for break-point and we are targeting a break-point of 600px or 37.5em here */
+/* This is a Sass variable as you CANNOT use CSS variables with media queries. 500px / 16px = 31.25em; bp stands for break-point and we are targeting a break-point of 500px or 31.25em here */
 * {
   margin: 0;
   padding: 0; }
@@ -97,6 +99,13 @@ body {
   /* Placed the header with space-between because we don't want any space between the logo and the user name on the sides. */
   align-items: center;
   /* Centers the header content vertically */ }
+  @media only screen and (max-width: 31.25em) {
+    .header {
+      flex-wrap: wrap;
+      /* Wraps search bar to new row all by itself on really small screens that are 500px or smaller. In components file we already put the search bar to the end by placing an order of 1 and then combined with this moves it all the way on its own line */
+      align-content: space-around;
+      /* This gives some spacing between the rows such as the logo / chat icon/ user picture and the next row which is the search bar */
+      height: 11rem; } }
 
 .content {
   /* Flex Container */
@@ -132,6 +141,10 @@ body {
   @media only screen and (max-width: 56.25em) {
     .detail {
       padding: 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .detail {
+      flex-direction: column;
+      /* At 600px or 37.5em we want to convert to columns so sections are stacked on top of each other because screen size is too narrow to have side-by-side sections such as the user review being on right side of the hotel description.  */ } }
 
 .description {
   box-shadow: var(--shadow-light);
@@ -143,6 +156,10 @@ body {
     .description {
       padding: 2rem;
       margin-right: 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .description {
+      margin-right: 0rem;
+      margin-bottom: 3rem; } }
 
 .user-reviews {
   flex: 1;
@@ -168,6 +185,14 @@ body {
   /* Centers elements in the middle of the container vertically */
   justify-content: center;
   /* Centers elements in the middle of the container horizontally */ }
+  @media only screen and (max-width: 31.25em) {
+    .search {
+      order: 1;
+      /* Default for order is always 0; Setting it to 1 moves this to the last position. So below 500px this search bar moves all the way to the right where the user picture and name was. We also adjusted .header with media query to put the property flex-wrap: wrap so that this search bar not only moves all the way to the right on a really small screen that is 500px or smaller but it also drops to its own line so we have enough room to enter search text.  */
+      flex: 0 0 100%;
+      /* This makes our search bar 100% width so it will wrap (wrap property set in .header on layout file) and drop to its own line when we have a screen that is 500px or smaller */
+      background-color: var(--color-grey-light-2);
+      /* This eliminates the search bar with its rounded corners and just makes the search bar the full row with no rounded corners. The search bar goes from edge to edge. */ } }
   .search__input {
     /* This is the search input box */
     font-family: inherit;
@@ -343,12 +368,24 @@ body {
         justify-content: center;
         /* At 900px or 56.25em or below screen size we want to center the links of the navigation that runs horizontally at top inside their individual containers */
         padding: 2rem; } }
+    @media only screen and (max-width: 37.5em) {
+      .side-nav__link:link, .side-nav__link:visited {
+        flex-direction: column;
+        padding: 1.5rem .5rem; } }
   .side-nav__icon {
     width: 1.75rem;
     height: 1.75rem;
     margin-right: 2rem;
     fill: currentColor;
     /* Fill property is the property to use to color <svg> items. CurrentColor property is the color of the current parent which is the --color-grey-light-1 from the &__link:link, &__link:visited above; &__icon is a child of this parent and so currentColor property just essentially says to inherit color property from parent. */ }
+    @media only screen and (max-width: 56.25em) {
+      .side-nav__icon {
+        margin-right: 0;
+        margin-bottom: .7rem;
+        width: 1.5rem;
+        /* Making icon smaller on screen sizes 600px or smaller */
+        height: 1.5rem;
+        /* Making icon smaller on screen sizes 600px or smaller */ } }
 
 /*-------------------------------LEGAL TEXT--------------------------------------------*/
 .legal {
@@ -382,6 +419,11 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 1.5rem 3rem; }
+    @media only screen and (max-width: 37.5em) {
+      .overview__heading {
+        /* When screen hits 600px or 37.5em */
+        font-size: 1.8rem;
+        padding: 1.25rem 2rem; } }
   .overview__stars {
     margin-right: auto;
     /* Auto here sets the stars container to the width of its content and pushes the other content to the right of it (location and ratings) all the way to the end of the other side of the parents flex container; We commented out the above because although we get the desired look but now the stars take up the remaining space but what if we want some hover effect, etc we don't want the stars to have that big of a box. */
@@ -414,13 +456,25 @@ body {
     /* Horizontally center items */
     flex-direction: column;
     /* Set the direction to column/vertical because default is horizontal */ }
+    @media only screen and (max-width: 37.5em) {
+      .overview__rating {
+        /* When screen hits 600px or 37.5em or below. */
+        padding: 0 1.5rem; } }
   .overview__rating-average {
     font-size: 2.25rem;
     font-weight: 300;
     margin-bottom: -.3rem; }
+    @media only screen and (max-width: 37.5em) {
+      .overview__rating-average {
+        /* /* When screen hits 600px or 37.5em or below. */
+        font-size: 1.8rem; } }
   .overview__rating-count {
     font-size: .8rem;
     text-transform: uppercase; }
+    @media only screen and (max-width: 37.5em) {
+      .overview__rating-count {
+        /* /* When screen hits 600px or 37.5em or below. */
+        font-size: .5rem; } }
 
 /*-------------------------------LOCATION NAME WHICH IS A LINK/BUTTON--------------------------------------------*/
 .btn-inline {

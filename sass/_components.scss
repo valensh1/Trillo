@@ -15,6 +15,12 @@
     align-items: center; /* Centers elements in the middle of the container vertically */
     justify-content: center; /* Centers elements in the middle of the container horizontally */
 
+    @media only screen and (max-width: $bp-smallest) {
+        order: 1; /* Default for order is always 0; Setting it to 1 moves this to the last position. So below 500px this search bar moves all the way to the right where the user picture and name was. We also adjusted .header with media query to put the property flex-wrap: wrap so that this search bar not only moves all the way to the right on a really small screen that is 500px or smaller but it also drops to its own line so we have enough room to enter search text.  */
+        flex: 0 0 100%; /* This makes our search bar 100% width so it will wrap (wrap property set in .header on layout file) and drop to its own line when we have a screen that is 500px or smaller */
+        background-color: var(--color-grey-light-2); /* This eliminates the search bar with its rounded corners and just makes the search bar the full row with no rounded corners. The search bar goes from edge to edge. */
+    }
+
     &__input { /* This is the search input box */
         font-family: inherit; /* font of input does not pick up global font-family settings automatically and must put inherit for it to receive global font settings */
         font-size: inherit; /* font of input does not pick up global font-family settings automatically and must put inherit for it to receive global font settings */
@@ -185,6 +191,11 @@
             justify-content: center; /* At 900px or 56.25em or below screen size we want to center the links of the navigation that runs horizontally at top inside their individual containers */
             padding: 2rem;
         }
+
+        @media only screen and (max-width: $bp-small) { 
+           flex-direction: column;
+           padding: 1.5rem .5rem;
+        }
     }
 
     &__icon {
@@ -192,6 +203,13 @@
         height: 1.75rem;
         margin-right: 2rem;
         fill: currentColor; /* Fill property is the property to use to color <svg> items. CurrentColor property is the color of the current parent which is the --color-grey-light-1 from the &__link:link, &__link:visited above; &__icon is a child of this parent and so currentColor property just essentially says to inherit color property from parent. */
+    
+        @media only screen and (max-width: $bp-medium) { 
+            margin-right: 0;
+            margin-bottom: .7rem;
+            width: 1.5rem; /* Making icon smaller on screen sizes 600px or smaller */
+            height: 1.5rem; /* Making icon smaller on screen sizes 600px or smaller */
+        }
     }
 }
 
@@ -233,6 +251,11 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         padding: 1.5rem 3rem;
+
+        @media only screen and (max-width: $bp-small) { /* When screen hits 600px or 37.5em */
+            font-size: 1.8rem;
+            padding: 1.25rem 2rem;
+        }
     }
 
     &__stars {
@@ -269,6 +292,10 @@
         align-items: center; /* Vertically center items */
         justify-content: center; /* Horizontally center items */
         flex-direction: column; /* Set the direction to column/vertical because default is horizontal */
+    
+        @media only screen and (max-width: $bp-small) { /* When screen hits 600px or 37.5em or below. */
+            padding: 0 1.5rem;
+        }
     }
 
     &__rating-average {
@@ -276,12 +303,19 @@
         font-weight: 300;
         margin-bottom: -.3rem;
       
+        @media only screen and (max-width: $bp-small) { /* /* When screen hits 600px or 37.5em or below. */
+            font-size: 1.8rem;
+        }
     }
 
     &__rating-count {
         font-size: .8rem;
         text-transform: uppercase;
        
+        @media only screen and (max-width: $bp-small) { /* /* When screen hits 600px or 37.5em or below. */
+            font-size: .5rem;
+        }
+        
     }
 }
 

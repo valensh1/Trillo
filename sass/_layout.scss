@@ -21,6 +21,12 @@
     display: flex;
     justify-content: space-between; /* Placed the header with space-between because we don't want any space between the logo and the user name on the sides. */
     align-items: center; /* Centers the header content vertically */
+
+    @media only screen and (max-width: $bp-smallest) {
+        flex-wrap: wrap; /* Wraps search bar to new row all by itself on really small screens that are 500px or smaller. In components file we already put the search bar to the end by placing an order of 1 and then combined with this moves it all the way on its own line */
+        align-content: space-around; /* This gives some spacing between the rows such as the logo / chat icon/ user picture and the next row which is the search bar */
+        height: 11rem;
+    }
 }
 
 .content { /* Flex Container */
@@ -57,6 +63,10 @@
     @media only screen and (max-width: $bp-medium) { 
         padding: 3rem;
     }
+
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column; /* At 600px or 37.5em we want to convert to columns so sections are stacked on top of each other because screen size is too narrow to have side-by-side sections such as the user review being on right side of the hotel description.  */
+    }
 }
 
 .description {
@@ -68,6 +78,11 @@
     @media only screen and (max-width: $bp-medium) { 
         padding: 2rem;
         margin-right: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) { 
+        margin-right: 0rem;
+        margin-bottom: 3rem;
     }
 }
 
