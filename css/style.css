@@ -547,17 +547,23 @@ body {
     width: 1rem;
     margin-right: .7rem;
     /* OLDER BROWSERS */
-    /* NEWER BROWSERS */
-    background-color: var(--color-primary);
-    /* Sets the color of our svg arrows; Before placing -webkit-mask-image in code below this is a pinkish square defined by our --color-primary color */
-    -webkit-mask-image: url(../img/chevron-thin-right.svg);
-    /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
-    -webkit-mask-size: cover;
-    /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */
-    mask-image: url(../img/chevron-thin-right.svg);
-    /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
-    mask-size: cover;
-    /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */ }
+    background-image: url(../img/chevron-thin-right.svg);
+    background-size: cover;
+    /* NEWER BROWSERS */ }
+    @supports (-webkit-mask-image: url()) or (mask-image: url()) {
+      .list__item::before {
+        /* If you support webkit mask image or just the regular mask image with no prefixes or webkit then run lines of code below otherwise it will run code for older browsers above. */
+        background-color: var(--color-primary);
+        /* Sets the color of our svg arrows; Before placing -webkit-mask-image in code below this is a pinkish square defined by our --color-primary color */
+        -webkit-mask-image: url(../img/chevron-thin-right.svg);
+        /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
+        -webkit-mask-size: cover;
+        /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */
+        mask-image: url(../img/chevron-thin-right.svg);
+        /* Masks allow you to change color of background images. What this does is it clips the background around the image and makes it white (or whatever background you have styled) and makes the image itself transparent which then allows you to see through the image to the background you set for the image above which in this case is --color-primary which allows you to get a colored image of your choosing */
+        mask-size: cover;
+        /* This is needed because the image size is naturally bigger than 1rem. If you set image height and width to 2rem this line of code is not needed. However, because we set the height and width properties to smaller than the image itself we need to have this property set to cover to ensure the transparency of the image and we get our desired look even if we set the height and width properties of image smaller than the actual size of the image itself. Without this line of code you see the pinkish color but its not a full arrow. */
+        background-image: none; } }
 
 /*-------------------------------RECOMMEND-----------------------------------------------------*/
 .recommend {
